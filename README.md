@@ -13,6 +13,6 @@ Tiki là một trong những trang thương mại điện tử lớn nhất hi�
 
 🔻***Product Data Thread:***
     
-   *Task1: từ các product_id thì task này sẽ cào ra các dữ liệu về sản phẩm đó và phân bố vào 3 dataframe: product, categories và seller.
+   - Task1: từ các product_id thì task này sẽ cào ra các dữ liệu về sản phẩm đó và phân bố vào 3 dataframe: product, categories và seller.
     
-   *Task2: từ các dataframe ta sẽ thêm dữ liệu này vào trong MySQL. Vì thread này tác động trực tiếp lên dataframe và sẽ xóa đi row của dataframe được thêm vào MySQL      nên ta sẽ khóa thread ở task này để tránh gây ảnh hưởng tới dataframe trong quá trình chạy
+   - Task2: từ các dataframe ta sẽ thêm dữ liệu này vào trong MySQL. Vì thread này tác động trực tiếp lên dataframe và sẽ xóa đi row của dataframe được thêm vào MySQL      nên ta sẽ khóa thread ở task này để tránh gây ảnh hưởng tới dataframe trong quá trình chạy
