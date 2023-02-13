@@ -1,18 +1,31 @@
-# <div align="center">CÀO DỮ LIỆU TỪ TIKI</div>
+# <div align="center">TIKI DATA MINING</div>
 
-### 🚨Nội dung đề tài: 
-Tiki là một trong những trang thương mại điện tử lớn nhất hiện nay. Những thông tin về sản phẩm, người bán và loại sản phẩm là một trong những thông tin vô cùng hữu ích cho các bạn học tập và phân tích. Với Project này, mình sẽ hỗ trợ các bạn cào thông tin sản phẩm từ trang chủ của của Tiki một cách rất trực quan. Cuối cùng, mình sẽ liên tục vừa cào và đẩy dữ liệu vào MySQL database.
+### Web Scraping
 
-### 💡Cách xử lý việc liên tục cào và thêm dữ liệu:
+Step1: Crawling all information about product ID and categories Id from Tiki main page
+
+Step2: Crawling the data following product ID
+
+Step3: From one categories, we continue crawl the relate product ID
+
+### Data Cleaning
+🔆 After scraping the data, I needed to clean it up so that it was usable for our model. I made the following changes and created the following variables:
+- Remove the data which have exist in database
+- Detect the data in same store from >seller and allow it >null
+- Flatten the nested feild in the data
+
+
+### 💡The Process to automatic Minint the data and insert to database:
 
 ![alt text](https://github.com/DungNguyen0209/Crawling_Product_Data_From_Tiki/blob/main/Assert/Presentation1.jpg?raw=true)
 
-🔻***Main Thread:*** Chứa danh sách các categories_id và product_id để chia sẻ tài nguyên giữa các thread
-    -> Khi mà đã cào hết data từ categories_id list thì việc cào dữ liệu sẽ ngừng lại
-🔻***Product_id Thread:*** Khi thread này được chạy thì nó sẽ lấy categories_id đầu tiên để cào ra các product_id và thêm vào product_id  list ở Main thread
+🔻***Main Thread:*** Two array categories_id and product_id is the common resource among the multi threads
+    -> The process stop when the categories is empty 
+
+🔻***Product_id Thread:*** Get the first element in categories list to crawl all product id and add it to product_id list in Main thread
 
 🔻***Product Data Thread:***
     
-   - Task1: từ các product_id thì task này sẽ cào ra các dữ liệu về sản phẩm đó và phân bố vào 3 dataframe: product, categories và seller.
+   - Task1: Cleaning and insert into 3 DataFrame: product, categories và seller.
     
-   - Task2: từ các dataframe ta sẽ thêm dữ liệu này vào trong MySQL. Vì thread này tác động trực tiếp lên dataframe và sẽ xóa đi row của dataframe được thêm vào MySQL      nên ta sẽ khóa thread ở task này để tránh gây ảnh hưởng tới dataframe trong quá trình chạy
+   - Task2: Import each DataFrame to  MySQL. Because we share resource between threads so the import thread have to be locked until the process done.
