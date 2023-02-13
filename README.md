@@ -11,7 +11,7 @@ Step3: From one categories, we continue crawl the relate product ID
 ### Data Cleaning
 🔆 After scraping the data, I needed to clean it up so that it was usable for our model. I made the following changes and created the following variables:
 - Remove the data which have exist in database
-- Detect the data in same store from >seller and allow it >null
+- Detect the data in same store from **seller** and allow it **null**
 - Flatten the nested feild in the data
 
 
